@@ -48,7 +48,15 @@ begin
         when "00011001" => cmemdbus <= "00010000"; -- dbus->IR    |(mem->cpu)->cbus |++
         when "00011010" => cmemdbus <= "01110011"; -- IR->PC      |(mem->cpu)->cbus |0
         when "00011011" => cmemdbus <= "00000000"; 
-        
+                                                   -- code(0000 0111) [xx] = acc
+        when "00011100" => cmemdbus <= "00000000"; -- pc->abus    |(mem->cpu)->cbus |++
+        when "00011101" => cmemdbus <= "01100000"; -- dbus->mar   |(mem->cpu)->cbus |++
+        when "00011110" => cmemdbus <= "01010000"; -- mar->abus   |(mem->cpu)->cbus |++
+        when "00011111" => cmemdbus <= "10001000"; -- acc->dbus   |(cpu->mem)->cbus |++ 
+        when "00100000" => cmemdbus <= "11110011"; -- PC++        |(mem->cpu)->cbus |0
+        when "00100001" => cmemdbus <= "01100000"; 
+        when "00100010" => cmemdbus <= "01011000";
+        when "00100011" => cmemdbus <= "10000000"; 
         when others =>
       end case;
     end process;

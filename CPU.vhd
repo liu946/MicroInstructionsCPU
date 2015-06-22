@@ -42,6 +42,8 @@ architecture cpubhv of cpu is
           mar<=cpudbus;
         when "0111" => -- IR->PC
           PC<=IR;
+        when "1000" => -- acc->dbus
+          cpudbus<=nacc;
         when "1111" => -- pc++
           PC<=PC+1;
         when others=>
