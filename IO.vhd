@@ -13,7 +13,7 @@ begin
   process(clk)
     begin
       if iocbus = "01" then 
-        iodbus <= "00111100";
+        iodbus <= "00001010";
       else
         iodbus <= "ZZZZZZZZ";
       end if;

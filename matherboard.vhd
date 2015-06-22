@@ -9,7 +9,7 @@ architecture mbbhv of motherboard is
   component CPU is
       PORT (clk,rst: IN STD_LOGIC;
         cpucbus: OUT STD_LOGIC_VECTOR(1 downto 0);
-        cpuabus,ACC :OUT STD_LOGIC_VECTOR(7 downto 0);
+        cpuabus :OUT STD_LOGIC_VECTOR(7 downto 0);
         cpudbus :INOUT STD_LOGIC_VECTOR(7 downto 0) );
   end component;
   component mem is
@@ -23,11 +23,11 @@ architecture mbbhv of motherboard is
         iocbus: IN STD_LOGIC_VECTOR(1 downto 0);
         iodbus :INOUT STD_LOGIC_VECTOR(7 downto 0) );
   end component; 
-  signal acc,abus,dbus:STD_LOGIC_VECTOR(7 downto 0):="00000000";
+  signal abus,dbus:STD_LOGIC_VECTOR(7 downto 0):="00000000";
   signal cbus:STD_LOGIC_VECTOR(1 downto 0):="00";
   signal clk,rst:STD_LOGIC:='0';
   begin --begin architecture
-    ucpu: CPU port map (clk=>clk,rst=>rst,cpucbus=>cbus,cpuabus=>abus,cpudbus=>dbus,ACC=>acc);
+    ucpu: CPU port map (clk=>clk,rst=>rst,cpucbus=>cbus,cpuabus=>abus,cpudbus=>dbus);
     umem: mem port map (clk=>clk,memcbus=>cbus,memabus=>abus,memdbus=>dbus);
     uio: IO port map (clk=>clk,iocbus=>cbus,iodbus=>dbus);
   process
