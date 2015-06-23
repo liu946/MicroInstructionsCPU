@@ -15,7 +15,7 @@ architecture cpubhv of cpu is
         cmemabus :IN STD_LOGIC_VECTOR(9 downto 0);
         cmemdbus :OUT STD_LOGIC_VECTOR(7 downto 0) );
   end component;
-  type REGRAM is array(0 to 4) of STD_LOGIC_VECTOR(7 downto 0);
+  type REGRAM is array(0 to 3) of STD_LOGIC_VECTOR(7 downto 0);
   signal reg:REGRAM;
   signal regpoint :INTEGER;
   signal mar,nacc,PC,IR,uIR:STD_LOGIC_VECTOR(7 downto 0):="00000000";
@@ -38,6 +38,10 @@ architecture cpubhv of cpu is
       IF rst ='0' then
         uPC <= "0000000000";
         nacc <= "00000000";
+        reg(0)<="00000000";
+        reg(1)<="00000000";
+        reg(2)<="00000000";
+        reg(3)<="00000000";
       elsif clk'EVENT AND clk = '1' then 
         case uIR(7 downto 4) is
         when "0000" => -- pc->abus & (mem->cpu)->cbus
