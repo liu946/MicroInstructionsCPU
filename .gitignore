@@ -1,0 +1,7 @@
+_info
+_vmake
+*.bak
+*.mti
+*.mpf
+*.wlf
+work/
