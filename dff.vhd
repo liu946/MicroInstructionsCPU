@@ -11,10 +11,10 @@ BEGIN
    
    process(CLK,RST)
      begin
-     if RST='1' then
-       q<='0';
+     if RST='1' then    -- reset when rst = 1
+       q<='0';          -- reset q<=0
      elsif CLK='1'and CLK'event then
-       q<=d;
+       q<=d;            -- sync the q port when clk event
      end if;
    end process;
 

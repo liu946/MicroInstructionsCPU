@@ -12,40 +12,40 @@ begin
   process(clk,rst)
     begin
       if clk='1' and clk'event then
-        pr_state<=nx_state;
+        pr_state<=nx_state;   -- to next state when clk rising edge
       end if;
     end process;
     
   process(read_write,rst,pr_state)
 
     begin
-    case pr_state is
+    case pr_state is  -- explain state
     when off=> 
-      oe<='0';we<='0';
+      oe<='0';we<='0';  -- off => out = "00"
       if rst = '0' then
         nx_state<=work;
       end if;
-    when work =>
+    when work =>        -- work  => out = keep
       if rst ='1' then 
-        nx_state<=off; 
-      elsif read_write = '1' then 
-        nx_state<=write;
+        nx_state<=off; -- set next state = off when rst = 1
+      elsif read_write = '1' then -- select nextstate by signal read_write
+        nx_state<=write; -- nextstate = write when 1
       else
-        nx_state<=read;
+        nx_state<=read;  -- nextstate = write when 0
       end if;
     when read=>
       if rst ='1' then 
-        nx_state<=off; 
+        nx_state<=off; -- set next state = off when rst = 1
       else
-        oe<='1';we<='0';
-        nx_state<=work;
+        oe<='1';we<='0'; -- read  => out = "10"
+        nx_state<=work; -- auto recover to work
       end if;
     when write=>
       if rst ='1' then 
-        nx_state<=off; 
+        nx_state<=off; -- set next state = off when rst = 1
       else
-        oe<='0';we<='1';
-        nx_state<=work;
+        oe<='0';we<='1';  -- write => out = "01"
+        nx_state<=work; -- auto recover to work 
       end if;
     when others=>
       null;
