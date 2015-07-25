@@ -57,10 +57,10 @@ begin
     begin
       if t1='1' and t1'event then
         a<=reg(i);
-        if IR(15)='1' then
-          b<=IR(7 downto 0);
-        else
+        if IR(15)&IR(12 downto 11)="000" then
           b<=reg(j);
+        else
+          b<=IR(7 downto 0);
         end if;    
       end if;
   end process;
